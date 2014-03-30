@@ -5,12 +5,16 @@ import java.io.*;
  * 
  * */
 public class Stack {
-	
 	//note topOfStack need not be a static as It can be used by any instance of class Stack
 //	private static int topOfStack;
-	private int topOfStack,length;
-	private char[] stackArray;
-	private static int countStackObject;
+	
+	//private int topOfStack,length;
+	//making length to be protected so that child class can access it
+	protected int topOfStack,length;
+	protected char[] stackArray;
+//	private static int countStackObject;
+// Changing the Scope to Protected to be available to the other subclasses
+	protected static int countStackObject;
 	
 	public static void main(String[] args) {
 	
@@ -39,7 +43,13 @@ public class Stack {
 		getInstanceCount();
 	}
 	
+	Stack(){
+		//default constructor is must when you extend Stack class
+	}
+	//Constructor will override default Stack() constructor restricts the subclasses creation so we have to 
+	// define a default constructor as done above
 	Stack(int lengthOfStack){
+		System.out.println("inside one argument constructor");
 		length = lengthOfStack;
 		topOfStack = -1;
 		countStackObject++;
@@ -50,7 +60,10 @@ public class Stack {
 		
 	}
 	public char pop(){
+		
 		return stackArray[topOfStack--];
+		
+		
 	}
 	public boolean isEmpty(){
 		return topOfStack < 0;	
@@ -60,9 +73,8 @@ public class Stack {
 		return topOfStack == length-1;
 	}
 	public char topElement(){
-		return stackArray[topOfStack--];
+		return stackArray[topOfStack];
 	}
-
 	/*
 	 * method which prints number of objects instantiated for the Stack class 
 	 * 
